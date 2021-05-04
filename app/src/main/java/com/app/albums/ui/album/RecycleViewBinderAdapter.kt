@@ -11,11 +11,11 @@ import com.app.albums.databinding.AlbumsListItemBinding
 /**
  * Recycler view adapter for the [Album] item which uses Jetpack's [ListAdapter] instead of [RecyclerView.Adapter]
  */
-class RecycleViewBinderAdapter : ListAdapter<Album, RecycleViewBinderAdapter.UserViewHolder>(Companion) {
+class RecycleViewBinderAdapter : ListAdapter<Album, RecycleViewBinderAdapter.AlbumViewHolder>(Companion) {
 
     private val TAG = AlbumListViewModel::class.java.simpleName
 
-    class UserViewHolder(val binding: AlbumsListItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class AlbumViewHolder(val binding: AlbumsListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     //Using DiffUtil to check duplicity
     companion object: DiffUtil.ItemCallback<Album>() {
@@ -23,14 +23,14 @@ class RecycleViewBinderAdapter : ListAdapter<Album, RecycleViewBinderAdapter.Use
         override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean = oldItem.id == newItem.id
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = AlbumsListItemBinding.inflate(layoutInflater)
 
-        return UserViewHolder(binding)
+        return AlbumViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val albumItem = getItem(position)
         Log.i(TAG, "onBindViewHolder: ${albumItem.title}")
         holder.binding.album = albumItem

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -45,7 +47,15 @@ class AlbumListFragment : Fragment() {
         // Observe for the data from fragment View model
         viewModel.albumData.observe(viewLifecycleOwner, Observer {
             Log.e(TAG, "Data received to the Observer: ${it.toString()}")
-            it.let(albumAdapter::submitList)
+            when(it){
+                emptyList<Album>() -> {
+                    dataBinding.tvConnectivityIssue.visibility = VISIBLE
+                    dataBinding.recyclerAlbums.visibility = GONE
+                }
+                else -> {
+                    it.let(albumAdapter::submitList)
+                }
+            }
         })
     }
 }
