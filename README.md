@@ -24,6 +24,7 @@ The application is based on MVVM design pattern.
 ### Further enhancements
 
 * Use of Dependency injection libraries like Dagger
+* Handle configuration changes
 * Room database for data persistence.
 * Progressbar to show loading while fetching the data from the API
 * Improving the data source fetch using Paging With Database And Network
